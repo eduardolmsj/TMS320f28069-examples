@@ -1,0 +1,197 @@
+mergesort:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Função para intercalar dois subvetores de arr[]
+void merge(int arr[], int l, int m, int r) {
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    // Criação de subvetores temporários
+    int L[n1], R[n2];
+
+    // Copia os dados para os subvetores L[] e R[]
+    for (i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    // Intercala os subvetores de volta ao vetor principal arr[l..r]
+    i = 0; // Índice inicial do primeiro subvetor
+    j = 0; // Índice inicial do segundo subvetor
+    k = l; // Índice inicial do vetor resultante
+    while (i < n1 && j < n2) {
+        if (L[i] >= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copia os elementos restantes de L[], se houver algum
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    // Copia os elementos restantes de R[], se houver algum
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+// Função principal do algoritmo mergesort
+void mergeSort(int arr[], int l, int r) {
+    if (l < r) {
+        // Encontra o ponto médio do vetor
+        int m = l + (r - l) / 2;
+
+        // Recursivamente ordena a primeira metade
+        mergeSort(arr, l, m);
+
+        // Recursivamente ordena a segunda metade
+        mergeSort(arr, m + 1, r);
+
+        // Mescla as duas metades ordenadas
+        merge(arr, l, m, r);
+    }
+}
+
+int main() {
+    int n;
+    printf("Digite o tamanho do vetor: ");
+    scanf("%d", &n);
+
+    // Cria um vetor ordenado
+    int vetorOrdenado[n];
+    for (int i = 0; i < n; i++) {
+        vetorOrdenado[i] = i + 1;
+    }
+
+    // Imprime o vetor ordenado
+    printf("Vetor Ordenado:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", vetorOrdenado[i]);
+    }
+    printf("\n");
+
+    // Reordena o vetor para o pior caso do mergesort (decrescente)
+    for (int i = 0; i < n / 2; i++) {
+        int temp = vetorOrdenado[i];
+        vetorOrdenado[i] = vetorOrdenado[n - i - 1];
+        vetorOrdenado[n - i - 1] = temp;
+    }
+
+    // Imprime o vetor reordenado
+    printf("Vetor Reordenado (Pior Caso do Mergesort):\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", vetorOrdenado[i]);
+    }
+    printf("\n");
+
+    // Ordena o vetor usando o algoritmo mergesort
+    mergeSort(vetorOrdenado, 0, n - 1);
+
+    // Imprime o vetor ordenado por mergesort
+    printf("Vetor Ordenado por Mergesort:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", vetorOrdenado[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+#######################################################
+PID controller:
+
+#include <stdio.h>
+
+// Estrutura para armazenar os parâmetros do controlador PID
+typedef struct {
+    double kp;  // Ganho proporcional
+    double ki;  // Ganho integral
+    double kd;  // Ganho derivativo
+    double setpoint;  // Valor desejado de referência
+    double integral;   // Termo integral acumulado
+    double prev_error; // Último erro
+} PIDController;
+
+// Função para inicializar o controlador PID
+void initPID(PIDController *pid, double kp, double ki, double kd, double setpoint) {
+    pid->kp = kp;
+    pid->ki = ki;
+    pid->kd = kd;
+    pid->setpoint = setpoint;
+    pid->integral = 0;
+    pid->prev_error = 0;
+}
+
+// Função para calcular a saída do controlador PID
+double calculatePIDOutput(PIDController *pid, double process_variable) {
+    // Calcula o erro
+    double error = pid->setpoint - process_variable;
+
+    // Calcula o termo proporcional
+    double proportional = pid->kp * error;
+
+    // Calcula o termo integral
+    pid->integral += pid->ki * error;
+
+    // Calcula o termo derivativo
+    double derivative = pid->kd * (error - pid->prev_error);
+
+    // Calcula a saída do controlador PID
+    double output = proportional + pid->integral + derivative;
+
+    // Atualiza o erro anterior
+    pid->prev_error = error;
+
+    return output;
+}
+
+// Função para simular o sistema controlado (exemplo simples)
+double simulateSystem(double input) {
+    // Sistema: uma função linear simples para este exemplo
+    return 2.0 * input;
+}
+
+int main() {
+    // Parâmetros do controlador PID
+    double kp = 1.0;
+    double ki = 0.1;
+    double kd = 0.01;
+    double setpoint = 10.0;
+
+    // Inicializa o controlador PID
+    PIDController pid;
+    initPID(&pid, kp, ki, kd, setpoint);
+
+    // Simula o sistema controlado
+    double process_variable = 0.0;
+    double time_step = 0.1; // Passo de tempo da simulação
+    int num_steps = 100;
+
+    // Loop de simulação
+    for (int i = 0; i < num_steps; i++) {
+        // Calcula a saída do controlador PID
+        double pid_output = calculatePIDOutput(&pid, process_variable);
+
+        // Aplica a saída do controlador ao sistema e obtém a nova variável do processo
+        process_variable = simulateSystem(pid_output);
+
+        // Imprime os resultados
+        printf("Step %d: Setpoint=%f, PV=%f, Output=%f\n", i, pid.setpoint, process_variable, pid_output);
+    }
+
+    return 0;
+}

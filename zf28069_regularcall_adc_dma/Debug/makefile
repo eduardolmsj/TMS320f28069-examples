@@ -24,6 +24,7 @@ ORDERED_OBJS += \
 "./main.obj" \
 "./Methods/functions/adc.obj" \
 "./Methods/functions/gpio.obj" \
+"./Methods/functions/insertion.obj" \
 "./Methods/functions/pid.obj" \
 "C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/cmd/28069_RAM_lnk.cmd" \
 "C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/headers/cmd/F2806x_Headers_nonBIOS.cmd" \
@@ -157,8 +158,8 @@ Example_2806xDMA_ram_to_ram.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "F2806x_Adc.obj" "F2806x_CodeStartBranch.obj" "F2806x_DefaultIsr.obj" "F2806x_Dma.obj" "F2806x_GlobalVariableDefs.obj" "F2806x_PieCtrl.obj" "F2806x_PieVect.obj" "F2806x_SysCtrl.obj" "F2806x_usDelay.obj" "main.obj" "Methods\functions\adc.obj" "Methods\functions\gpio.obj" "Methods\functions\pid.obj" 
-	-$(RM) "F2806x_Adc.d" "F2806x_DefaultIsr.d" "F2806x_Dma.d" "F2806x_GlobalVariableDefs.d" "F2806x_PieCtrl.d" "F2806x_PieVect.d" "F2806x_SysCtrl.d" "main.d" "Methods\functions\adc.d" "Methods\functions\gpio.d" "Methods\functions\pid.d" 
+	-$(RM) "F2806x_Adc.obj" "F2806x_CodeStartBranch.obj" "F2806x_DefaultIsr.obj" "F2806x_Dma.obj" "F2806x_GlobalVariableDefs.obj" "F2806x_PieCtrl.obj" "F2806x_PieVect.obj" "F2806x_SysCtrl.obj" "F2806x_usDelay.obj" "main.obj" "Methods\functions\adc.obj" "Methods\functions\gpio.obj" "Methods\functions\insertion.obj" "Methods\functions\pid.obj" 
+	-$(RM) "F2806x_Adc.d" "F2806x_DefaultIsr.d" "F2806x_Dma.d" "F2806x_GlobalVariableDefs.d" "F2806x_PieCtrl.d" "F2806x_PieVect.d" "F2806x_SysCtrl.d" "main.d" "Methods\functions\adc.d" "Methods\functions\gpio.d" "Methods\functions\insertion.d" "Methods\functions\pid.d" 
 	-$(RM) "F2806x_CodeStartBranch.d" "F2806x_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

@@ -18,7 +18,6 @@ typedef struct {
     double prev_error; // Último erro
 } PIDController;
 
-
 //__interrupt void local_DINTCH1_ISR(void);
 //
 //__interrupt void adc_isr(void);

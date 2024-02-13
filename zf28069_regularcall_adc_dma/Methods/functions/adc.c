@@ -13,9 +13,10 @@ __interrupt void local_DINTCH1_ISR(void);
 __interrupt void adc_isr(void);
 
 void config_interrupts() {
+    EALLOW;
     PieVectTable.ADCINT1 = &adc_isr;
     PieVectTable.DINTCH1= &local_DINTCH1_ISR;
-//    EDIS;
+    EDIS;
 //    DINT;
 //    IER = 0x0000;
 //    IFR = 0x0000;
@@ -41,7 +42,7 @@ void config_interrupts() {
     //ADC interrupt
     PieCtrlRegs.PIEIFR1.bit.INTx1 = 1; // interrupt flag register (IFR) set to GROUP1 int1 (adc int 1)
     PieCtrlRegs.PIEIER1.bit.INTx1 = 1; // interrupt enable register (IFR) set to GROUP1 int1 (adc int 1)
-    PieCtrlRegs.PIEACK.all = PIEACK_GROUP1; // acknowledge GROUP1
+    PieCtrlRegs.PIEACK.all |= PIEACK_GROUP1; // acknowledge GROUP1
     PieCtrlRegs.PIECTRL.bit.ENPIE = 1;
     EINT;
     EDIS;
@@ -114,7 +115,7 @@ void Config_adc (int channel) {
 
 #define BUF_SIZE   1024  // Sample buffer size
 
-void Config_dma_4_adc(Uint16 DMADest[], Uint16 DMASource[], Uint16 DMABuf1[], Uint16 DMABuf2[], int adc_buffer_size) {
+void Config_dma_4_adc(Uint16 DMADest[], Uint16 DMASource[], Uint16 DMABuf1[], int adc_buffer_size) {
 
 //    EALLOW;
 //    PieVectTable.DINTCH1= &local_DINTCH1_ISR;
@@ -130,7 +131,6 @@ void Config_dma_4_adc(Uint16 DMADest[], Uint16 DMASource[], Uint16 DMABuf1[], Ui
     for (i=0; i<BUF_SIZE; i++)
         {
             DMABuf1[i] = 0;
-            DMABuf2[i] = i;
         }
 
     //
@@ -158,7 +158,7 @@ void Config_dma_4_adc(Uint16 DMADest[], Uint16 DMASource[], Uint16 DMABuf1[], Ui
     // Since this is a static copy use one shot mode, so only one trigger is
     // needed. Also using 32-bit mode to decrease x-fer time
     //
-    DMACH1ModeConfig(DMA_EPWM2A, PERINT_ENABLE, ONESHOT_ENABLE, CHINT_ENABLE,
+    DMACH1ModeConfig(DMA_EPWM2A, PERINT_ENABLE, ONESHOT_ENABLE, CONT_ENABLE,
                      SYNC_DISABLE, SYNC_SRC, OVRFLOW_DISABLE, SIXTEEN_BIT,
                      CHINT_END, CHINT_ENABLE);
 
@@ -220,7 +220,7 @@ adc_isr(void)
     //
     // Clear ADCINT1 flag reinitialize for next SOC
     //
-    AdcRegs.ADCINTFLGCLR.bit.ADCINT1 = 0;
+    AdcRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;
     GpioDataRegs.GPBTOGGLE.bit.GPIO39 = 1;
 
 //    PieCtrlRegs.PIEACK.all |= PIEACK_GROUP1;   // Acknowledge interrupt to PIE

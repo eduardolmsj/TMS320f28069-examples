@@ -44,13 +44,19 @@ volatile Uint16 *DMASource;
 // Main
 //
 
-#define STACK_SIZE  128U
+#define STACK_SIZE  256U
 
 //static StaticTask_t redTaskBuffer;
 //static StackType_t  redTaskStack[STACK_SIZE];
 
-static StaticTask_t blueTaskBuffer;
-static StackType_t  blueTaskStack[STACK_SIZE];
+//static StaticTask_t blueTaskBuffer;
+//static StackType_t  blueTaskStack[STACK_SIZE];
+
+static StaticTask_t insertionTaskBuffer;
+static StackType_t  insertionTaskStack[STACK_SIZE];
+
+static StaticTask_t controlTaskBuffer;
+static StackType_t  controlTaskStack[STACK_SIZE];
 
 static StaticTask_t idleTaskBuffer;
 static StackType_t  idleTaskStack[STACK_SIZE];
@@ -130,26 +136,53 @@ static void setupTimer1( void )
 }
 
 //-------------------------------------------------------------------------------------------------
-//void LED_TaskRed(void * pvParameters)
+void insertionTask(void * pvParameters)
+{
+    static uint32_t period_ms = 500;
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency = period_ms / portTICK_PERIOD_MS;
+    xLastWakeTime = xTaskGetTickCount();
+
+    int n =10;
+    int *insertion_arr = (int *)malloc(n * sizeof(int));
+    for(;;)
+    {
+        insertion_rotine(n, insertion_arr);
+        blueLedToggle();
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+    }
+}
+
+void controlTask(void * pvParameters)
+{
+    static uint32_t period_ms = 200;
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency = period_ms / portTICK_PERIOD_MS;
+    xLastWakeTime = xTaskGetTickCount();
+
+    double kp = 1.0;
+    double ki = 0.1;
+    double kd = 0.01;
+    double setpoint = 10.0;
+    PIDController pid;
+
+    for(;;)
+    {
+        PID_routine(&pid_output, &pid, kp, ki, kd, setpoint, adc_buffer_size, DMABuf1, &mean_adc_value);
+        redLedToggle();
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+//void LED_TaskBlue(void * pvParameters)
 //{
 //    for(;;)
 //    {
-//        if(xSemaphoreTake( xSemaphore, portMAX_DELAY ) == pdTRUE)
-//        {
-//            redLedToggle();
-//        }
+//        blueLedToggle();
+//        vTaskDelay(500 / portTICK_PERIOD_MS);
 //    }
 //}
-
-//-------------------------------------------------------------------------------------------------
-void LED_TaskBlue(void * pvParameters)
-{
-    for(;;)
-    {
-        blueLedToggle();
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-    }
-}
 
 //-------------------------------------------------------------------------------------------------
 void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
@@ -196,32 +229,40 @@ void main(void)
     Config_GPIO();
     config_interrupts();
 
-    PIDController pid;
+//    PIDController pid;
 
-    xTaskCreateStatic(LED_TaskBlue,         // Function that implements the task.
-                          "Blue LED task",      // Text name for the task.
+    xTaskCreateStatic(insertionTask,         // Function that implements the task.
+                          "Insertion Task",      // Text name for the task.
                           STACK_SIZE,           // Number of indexes in the xStack array.
                           ( void * ) 2,         // Parameter passed into the task.
                           tskIDLE_PRIORITY + 1, // Priority at which the task is created.
-                          blueTaskStack,        // Array to use as the task's stack.
-                          &blueTaskBuffer );    // Variable to hold the task's data structure.
+                          insertionTaskStack,        // Array to use as the task's stack.
+                          &insertionTaskBuffer );    // Variable to hold the task's data structure.
+
+    xTaskCreateStatic(controlTask,         // Function that implements the task.
+                              "Control Task",      // Text name for the task.
+                              STACK_SIZE,           // Number of indexes in the xStack array.
+                              ( void * ) 2,         // Parameter passed into the task.
+                              tskIDLE_PRIORITY + 1, // Priority at which the task is created.
+                              controlTaskStack,        // Array to use as the task's stack.
+                              &controlTaskBuffer );    // Variable to hold the task's data structure.
 
     vTaskStartScheduler();
 
     for(;;)
     {
-        adc_value = AdcResult.ADCRESULT0;
-        double kp = 1.0;
-        double ki = 0.1;
-        double kd = 0.01;
-        double setpoint = 10.0;
-        int n =100;
-        int insertion_arr[100];
-
-        // Inicializa o controlador PID
-        PID_routine(&pid_output, &pid, kp, ki, kd, setpoint, adc_buffer_size, DMABuf1, &mean_adc_value);
-        insertion_rotine(n, insertion_arr);
-        GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+//        adc_value = AdcResult.ADCRESULT0;
+//        double kp = 1.0;
+//        double ki = 0.1;
+//        double kd = 0.01;
+//        double setpoint = 10.0;
+//        int n =100;
+//        int insertion_arr[100];
+//
+//        // Inicializa o controlador PID
+//        PID_routine(&pid_output, &pid, kp, ki, kd, setpoint, adc_buffer_size, DMABuf1, &mean_adc_value);
+//        insertion_rotine(n, insertion_arr);
+//        GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
     }
 }
 

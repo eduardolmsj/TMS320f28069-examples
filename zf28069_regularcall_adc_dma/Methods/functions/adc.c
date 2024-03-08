@@ -1,10 +1,3 @@
-/*
- * teste.c
- *
- *  Created on: 18 de jan de 2024
- *      Author: Eduardo
- */
-
 #include "teste.h"
 #include "DSP28x_Project.h"
 

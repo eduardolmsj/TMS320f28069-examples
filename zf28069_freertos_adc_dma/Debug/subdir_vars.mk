@@ -21,6 +21,7 @@ C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/comm
 C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/headers/source/F2806x_GlobalVariableDefs.c \
 C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/source/F2806x_PieCtrl.c \
 C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/source/F2806x_PieVect.c \
+C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/source/F2806x_Sci.c \
 C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/source/F2806x_SysCtrl.c \
 ../main.c 
 
@@ -32,6 +33,7 @@ C_DEPS += \
 ./F2806x_GlobalVariableDefs.d \
 ./F2806x_PieCtrl.d \
 ./F2806x_PieVect.d \
+./F2806x_Sci.d \
 ./F2806x_SysCtrl.d \
 ./main.d 
 
@@ -44,6 +46,7 @@ OBJS += \
 ./F2806x_GlobalVariableDefs.obj \
 ./F2806x_PieCtrl.obj \
 ./F2806x_PieVect.obj \
+./F2806x_Sci.obj \
 ./F2806x_SysCtrl.obj \
 ./F2806x_usDelay.obj \
 ./main.obj 
@@ -61,6 +64,7 @@ OBJS__QUOTED += \
 "F2806x_GlobalVariableDefs.obj" \
 "F2806x_PieCtrl.obj" \
 "F2806x_PieVect.obj" \
+"F2806x_Sci.obj" \
 "F2806x_SysCtrl.obj" \
 "F2806x_usDelay.obj" \
 "main.obj" 
@@ -73,6 +77,7 @@ C_DEPS__QUOTED += \
 "F2806x_GlobalVariableDefs.d" \
 "F2806x_PieCtrl.d" \
 "F2806x_PieVect.d" \
+"F2806x_Sci.d" \
 "F2806x_SysCtrl.d" \
 "main.d" 
 
@@ -88,6 +93,7 @@ C_SRCS__QUOTED += \
 "C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/headers/source/F2806x_GlobalVariableDefs.c" \
 "C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/source/F2806x_PieCtrl.c" \
 "C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/source/F2806x_PieVect.c" \
+"C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/source/F2806x_Sci.c" \
 "C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/source/F2806x_SysCtrl.c" \
 "../main.c" 
 

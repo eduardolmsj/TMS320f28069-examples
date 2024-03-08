@@ -138,24 +138,26 @@ static void setupTimer1( void )
 //-------------------------------------------------------------------------------------------------
 void insertionTask(void * pvParameters)
 {
-    static uint32_t period_ms = 500;
+    static uint32_t period_ms = 100;
     TickType_t xLastWakeTime;
     const TickType_t xFrequency = period_ms / portTICK_PERIOD_MS;
     xLastWakeTime = xTaskGetTickCount();
 
-    int n =10;
+    int n =100;
     int *insertion_arr = (int *)malloc(n * sizeof(int));
     for(;;)
     {
+        GpioDataRegs.GPASET.bit.GPIO1 = 1;
         insertion_rotine(n, insertion_arr);
-        blueLedToggle();
+//        blueLedToggle();
+        GpioDataRegs.GPACLEAR.bit.GPIO1 = 1;
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
     }
 }
 
 void controlTask(void * pvParameters)
 {
-    static uint32_t period_ms = 200;
+    static uint32_t period_ms = 100;
     TickType_t xLastWakeTime;
     const TickType_t xFrequency = period_ms / portTICK_PERIOD_MS;
     xLastWakeTime = xTaskGetTickCount();
@@ -168,9 +170,12 @@ void controlTask(void * pvParameters)
 
     for(;;)
     {
+        GpioDataRegs.GPASET.bit.GPIO2 = 1;
         PID_routine(&pid_output, &pid, kp, ki, kd, setpoint, adc_buffer_size, DMABuf1, &mean_adc_value);
-        redLedToggle();
+//        redLedToggle();
+        GpioDataRegs.GPACLEAR.bit.GPIO2 = 1;
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
+//        GpioDataRegs.GPATOGGLE.bit.GPIO2 = 1;
     }
 }
 
@@ -219,11 +224,6 @@ void main(void)
     InitCpuTimers();
     setupTimer1();
 
-//    // point to interrupt function
-//    EALLOW;
-//    PieVectTable.ADCINT1 = &adc_isr;
-//    PieVectTable.DINTCH1= &local_DINTCH1_ISR;
-//    EDIS;
     Config_adc(2); //ADCINA2
     Config_dma_4_adc(DMADest, DMASource, DMABuf1, adc_buffer_size);
     Config_GPIO();

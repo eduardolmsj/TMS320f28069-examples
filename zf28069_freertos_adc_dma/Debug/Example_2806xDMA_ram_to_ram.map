@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v22.6.0                     
 ******************************************************************************
->> Linked Sat Feb 17 11:05:14 2024
+>> Linked Thu Mar  7 12:42:41 2024
 
 OUTPUT FILE NAME:   <Example_2806xDMA_ram_to_ram.out>
 ENTRY POINT SYMBOL: "code_start"  address: 00000000
@@ -13,8 +13,8 @@ MEMORY CONFIGURATION
 ----------------------  --------  ---------  --------  --------  ----  --------
 PAGE 0:
   BEGIN                 00000000   00000002  00000002  00000000  RWIX
-  RAMM0                 00000050   000003b0  00000089  00000327  RWIX
-  RAML0_L3              00008000   00002000  00001fdc  00000024  RWIX
+  RAMM0                 00000050   000003b0  0000007f  00000331  RWIX
+  RAML0_L3              00008000   00002000  00001fc6  0000003a  RWIX
   FPUTABLES             003fd590   000006a0  00000000  000006a0  RWIX
   IQTABLES              003fdf00   00000b50  00000000  00000b50  RWIX
   IQTABLES2             003fea50   0000008c  00000000  0000008c  RWIX
@@ -95,20 +95,20 @@ codestart
 *          0    00000000    00000002     
                   00000000    00000002     F2806x_CodeStartBranch.obj (codestart)
 
-.cinit     0    00000050    00000085     
+.cinit     0    00000050    0000007b     
                   00000050    00000034     tasks.obj (.cinit)
-                  00000084    00000026     main.obj (.cinit)
-                  000000aa    0000000e     rts2800_fpu32.lib : exit.c.obj (.cinit)
-                  000000b8    0000000d     port.obj (.cinit)
-                  000000c5    00000005     rts2800_fpu32.lib : _lock.c.obj (.cinit:__lock)
-                  000000ca    00000005                       : _lock.c.obj (.cinit:__unlock)
-                  000000cf    00000004                       : memory.c.obj (.cinit)
-                  000000d3    00000002     --HOLE-- [fill = 0]
+                  00000084    0000001c     main.obj (.cinit)
+                  000000a0    0000000e     rts2800_fpu32.lib : exit.c.obj (.cinit)
+                  000000ae    0000000d     port.obj (.cinit)
+                  000000bb    00000005     rts2800_fpu32.lib : _lock.c.obj (.cinit:__lock)
+                  000000c0    00000005                       : _lock.c.obj (.cinit:__unlock)
+                  000000c5    00000004                       : memory.c.obj (.cinit)
+                  000000c9    00000002     --HOLE-- [fill = 0]
 
-ramfuncs   0    000000d5    00000004     
-                  000000d5    00000004     F2806x_usDelay.obj (ramfuncs)
+ramfuncs   0    000000cb    00000004     
+                  000000cb    00000004     F2806x_usDelay.obj (ramfuncs)
 
-.text      0    00008000    00001fdc     
+.text      0    00008000    00001fc6     
                   00008000    0000068c     tasks.obj (.text)
                   0000868c    0000040c     queue.obj (.text)
                   00008a98    000003a9     F2806x_DefaultIsr.obj (.text:retain)
@@ -116,31 +116,31 @@ ramfuncs   0    000000d5    00000004
                   000091ca    0000028c     rts2800_fpu32.lib : memory.c.obj (.text)
                   00009456    00000237     F2806x_Adc.obj (.text)
                   0000968d    00000190     F2806x_SysCtrl.obj (.text)
-                  0000981d    00000109     main.obj (.text)
-                  00009926    000000d5     port.obj (.text)
-                  000099fb    000000c8     pid.obj (.text)
-                  00009ac3    000000c6     adc.obj (.text)
-                  00009b89    00000092     list.obj (.text)
-                  00009c1b    00000088     rts2800_fpu32.lib : fs_div28.asm.obj (.text)
-                  00009ca3    00000083     porASM.obj (.text)
-                  00009d26    00000076     F2806x_CpuTimers.obj (.text)
-                  00009d9c    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
-                  00009df2    0000004f     insertion.obj (.text)
-                  00009e41    0000004e     adc.obj (.text:retain)
-                  00009e8f    0000003f     main.obj (.text:retain)
-                  00009ece    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
-                  00009ef7    00000028     F2806x_PieCtrl.obj (.text)
-                  00009f1f    00000026     F2806x_PieVect.obj (.text)
-                  00009f45    00000024     rts2800_fpu32.lib : cpy_tbl.c.obj (.text)
-                  00009f69    0000001d                       : memcpy.c.obj (.text)
-                  00009f86    00000016     gpio.obj (.text)
-                  00009f9c    00000013     rts2800_fpu32.lib : memcmp.c.obj (.text)
-                  00009faf    00000012                       : args_main.c.obj (.text)
-                  00009fc1    00000009                       : _lock.c.obj (.text)
-                  00009fca    00000008     F2806x_CodeStartBranch.obj (.text)
-                  00009fd2    00000007     rts2800_fpu32.lib : memset.c.obj (.text)
-                  00009fd9    00000002                       : pre_init.c.obj (.text)
-                  00009fdb    00000001                       : startup.c.obj (.text)
+                  0000981d    000000f3     main.obj (.text)
+                  00009910    000000d5     port.obj (.text)
+                  000099e5    000000c8     pid.obj (.text)
+                  00009aad    000000c6     adc.obj (.text)
+                  00009b73    00000092     list.obj (.text)
+                  00009c05    00000088     rts2800_fpu32.lib : fs_div28.asm.obj (.text)
+                  00009c8d    00000083     porASM.obj (.text)
+                  00009d10    00000076     F2806x_CpuTimers.obj (.text)
+                  00009d86    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
+                  00009ddc    0000004f     insertion.obj (.text)
+                  00009e2b    0000004e     adc.obj (.text:retain)
+                  00009e79    0000003f     main.obj (.text:retain)
+                  00009eb8    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
+                  00009ee1    00000028     F2806x_PieCtrl.obj (.text)
+                  00009f09    00000026     F2806x_PieVect.obj (.text)
+                  00009f2f    00000024     rts2800_fpu32.lib : cpy_tbl.c.obj (.text)
+                  00009f53    0000001d                       : memcpy.c.obj (.text)
+                  00009f70    00000016     gpio.obj (.text)
+                  00009f86    00000013     rts2800_fpu32.lib : memcmp.c.obj (.text)
+                  00009f99    00000012                       : args_main.c.obj (.text)
+                  00009fab    00000009                       : _lock.c.obj (.text)
+                  00009fb4    00000008     F2806x_CodeStartBranch.obj (.text)
+                  00009fbc    00000007     rts2800_fpu32.lib : memset.c.obj (.text)
+                  00009fc3    00000002                       : pre_init.c.obj (.text)
+                  00009fc5    00000001                       : startup.c.obj (.text)
 
 .pinit     0    00000050    00000000     UNINITIALIZED
 
@@ -417,7 +417,7 @@ MODULE SUMMARY
        ------                          ----   ----------------   ------------------
     .\
        F2806x_GlobalVariableDefs.obj   0      0                  3550              
-       main.obj                        328    67                 3056              
+       main.obj                        306    57                 3056              
        F2806x_DefaultIsr.obj           937    0                  0                 
        F2806x_Dma.obj                  905    0                  0                 
        F2806x_Adc.obj                  567    0                  0                 
@@ -428,7 +428,7 @@ MODULE SUMMARY
        F2806x_CodeStartBranch.obj      10     0                  0                 
        F2806x_usDelay.obj              4      0                  0                 
     +--+-------------------------------+------+------------------+--------------------+
-       Total:                          3347   323                6630              
+       Total:                          3325   313                6630              
                                                                                    
     .\FreeRTOS\
        tasks.obj                       1676   77                 100               
@@ -470,7 +470,7 @@ MODULE SUMMARY
        Heap:                           0      0                  1024              
        Stack:                          0      0                  512               
     +--+-------------------------------+------+------------------+--------------------+
-       Grand Total:                    8162   441                8284              
+       Grand Total:                    8140   431                8284              
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -615,8 +615,8 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                              
 ----  -------   ----                              
 0     00008000  .text                             
-0     00009ece  C$$EXIT                           
-0     00009c1b  FS$$DIV                           
+0     00009eb8  C$$EXIT                           
+0     00009c05  FS$$DIV                           
 0     00008b56  _ADCINT1_ISR                      
 0     00008b67  _ADCINT2_ISR                      
 0     00008d76  _ADCINT3_ISR                      
@@ -643,10 +643,10 @@ page  address   name
 1     00006400  _Comp1Regs                        
 1     00006420  _Comp2Regs                        
 1     00006440  _Comp3Regs                        
-0     00009d61  _ConfigCpuTimer                   
-0     00009f86  _Config_GPIO                      
-0     00009ae7  _Config_adc                       
-0     00009b24  _Config_dma_4_adc                 
+0     00009d4b  _ConfigCpuTimer                   
+0     00009f70  _Config_GPIO                      
+0     00009ad1  _Config_adc                       
+0     00009b0e  _Config_dma_4_adc                 
 1     0000a480  _CpuTimer0                        
 1     00000c00  _CpuTimer0Regs                    
 1     0000a488  _CpuTimer1                        
@@ -698,7 +698,7 @@ page  address   name
 1     0000a308  _DMADest                          
 0     00008e41  _DMAInitialize                    
 1     0000a30a  _DMASource                        
-0     000000d5  _DSP28x_usDelay                   
+0     000000cb  _DSP28x_usDelay                   
 1     00000880  _DevEmuRegs                       
 0     000096b1  _DisableDog                       
 1     00001000  _DmaRegs                          
@@ -747,7 +747,7 @@ page  address   name
 1     00006b40  _EQep2Regs                        
 1     00000d01  _EmuBMode                         
 1     00000d00  _EmuKey                           
-0     00009f16  _EnableInterrupts                 
+0     00009f00  _EnableInterrupts                 
 0     00009807  _ExtOscSel                        
 1     00000a80  _FlashRegs                        
 1     00000d04  _Flash_CPUScaleFactor             
@@ -771,10 +771,10 @@ page  address   name
 0     00008aa2  _INT14_ISR                        
 0     00009456  _InitAdc                          
 0     0000947f  _InitAdcAio                       
-0     00009d26  _InitCpuTimers                    
+0     00009d10  _InitCpuTimers                    
 0     0000973b  _InitPeripheralClocks             
-0     00009ef7  _InitPieCtrl                      
-0     00009f1f  _InitPieVectTable                 
+0     00009ee1  _InitPieCtrl                      
+0     00009f09  _InitPieVectTable                 
 0     000096b9  _InitPll                          
 0     0000970d  _InitPll2                         
 0     0000968d  _InitSysCtrl                      
@@ -787,7 +787,7 @@ page  address   name
 1     00005000  _McbspaRegs                       
 0     00008aca  _NMI_ISR                          
 1     00007060  _NmiIntruptRegs                   
-0     00009a71  _PID_routine                      
+0     00009a5b  _PID_routine                      
 0     00008e2d  _PIE_RESERVED                     
 1     003d7e80  _PartIdRegs                       
 1     00000ce0  _PieCtrlRegs                      
@@ -851,77 +851,77 @@ abs   ffffffff  ___TI_prof_data_start
 abs   ffffffff  ___binit__                        
 abs   ffffffff  ___c_args__                       
 0     00000050  ___cinit__                        
-0     00009fdc  ___etext__                        
+0     00009fc6  ___etext__                        
 abs   ffffffff  ___pinit__                        
 0     00008000  ___text__                         
-0     00009faf  __args_main                       
+0     00009f99  __args_main                       
 1     0000a3fe  __lock                            
-0     00009fc9  __nop                             
-0     00009fc5  __register_lock                   
-0     00009fc1  __register_unlock                 
+0     00009fb3  __nop                             
+0     00009faf  __register_lock                   
+0     00009fab  __register_unlock                 
 1     00000400  __stack                           
 1     0000a498  __sys_memory                      
-0     00009fdb  __system_post_cinit               
-0     00009fd9  __system_pre_init                 
+0     00009fc5  __system_post_cinit               
+0     00009fc3  __system_pre_init                 
 1     0000a432  __unlock                          
-0     00009ece  _abort                            
+0     00009eb8  _abort                            
 1     0000a301  _adc_buffer_size                  
-0     00009e76  _adc_isr                          
+0     00009e60  _adc_isr                          
 1     0000a302  _adc_value                        
 0     00009374  _aligned_alloc                    
 1     0000a3f7  _bPreemptive                      
 1     0000a3f6  _bYield                           
-0     00009d9c  _c_int00                          
-0     00009a1d  _calculatePIDOutput               
+0     00009d86  _c_int00                          
+0     00009a07  _calculatePIDOutput               
 0     00009347  _calloc                           
-0     00009ac3  _config_interrupts                
-0     0000988e  _controlTask                      
-0     00009f45  _copy_in                          
-0     00009ed0  _exit                             
+0     00009aad  _config_interrupts                
+0     00009872  _controlTask                      
+0     00009f2f  _copy_in                          
+0     00009eba  _exit                             
 0     000091f5  _free                             
-0     00009ca3  _getSTF                           
-0     000099fb  _initPID                          
-0     00009df2  _insertionSort                    
-0     0000986f  _insertionTask                    
-0     00009e25  _insertion_rotine                 
-0     00009e41  _local_DINTCH1_ISR                
-0     000098dd  _main                             
+0     00009c8d  _getSTF                           
+0     000099e5  _initPID                          
+0     00009ddc  _insertionSort                    
+0     0000984d  _insertionTask                    
+0     00009e0f  _insertion_rotine                 
+0     00009e2b  _local_DINTCH1_ISR                
+0     000098c7  _main                             
 0     000091ca  _malloc                           
 1     0000a304  _mean_adc_value                   
 0     00009374  _memalign                         
-0     00009f9c  _memcmp                           
-0     00009f69  _memcpy                           
-0     00009fd2  _memset                           
+0     00009f86  _memcmp                           
+0     00009f53  _memcpy                           
+0     00009fbc  _memset                           
 0     00009343  _minit                            
 0     00008211  _pcTaskGetName                    
 1     0000a306  _pid_output                       
-0     00009ca7  _portRESTORE_FIRST_CONTEXT        
-0     00009cb2  _portTICK_ISR                     
+0     00009c91  _portRESTORE_FIRST_CONTEXT        
+0     00009c9c  _portTICK_ISR                     
 1     0000a448  _pxCurrentTCB                     
-0     00009926  _pxPortInitialiseStack            
+0     00009910  _pxPortInitialiseStack            
 0     000092bf  _realloc                          
 0     00008e37  _rsvd_ISR                         
-0     00009a6a  _simulateSystem                   
+0     00009a54  _simulateSystem                   
 1     0000a300  _teste                            
-0     00009e8f  _timer1_ISR                       
+0     00009e79  _timer1_ISR                       
 1     0000a3f8  _ulCriticalNesting                
 0     0000843f  _ulTaskNotifyTake                 
-0     00009bf7  _uxListRemove                     
+0     00009be1  _uxListRemove                     
 0     00008956  _uxQueueMessagesWaiting           
 0     00008979  _uxQueueMessagesWaitingFromISR    
 0     00008964  _uxQueueSpacesAvailable           
 0     0000820d  _uxTaskGetNumberOfTasks           
 0     0000842a  _uxTaskResetEventItemValue        
-0     000098c8  _vApplicationGetIdleTaskMemory    
+0     000098b2  _vApplicationGetIdleTaskMemory    
 0     0000981d  _vApplicationSetupTimerInterrupt  
-0     000098d9  _vApplicationStackOverflowHook    
-0     00009b89  _vListInitialise                  
-0     00009ba1  _vListInitialiseItem              
-0     00009bc5  _vListInsert                      
-0     00009baa  _vListInsertEnd                   
-0     000099da  _vPortEndScheduler                
-0     000099e9  _vPortEnterCritical               
-0     000099f1  _vPortExitCritical                
+0     000098c3  _vApplicationStackOverflowHook    
+0     00009b73  _vListInitialise                  
+0     00009b8b  _vListInitialiseItem              
+0     00009baf  _vListInsert                      
+0     00009b94  _vListInsertEnd                   
+0     000099c4  _vPortEndScheduler                
+0     000099d3  _vPortEnterCritical               
+0     000099db  _vPortExitCritical                
 0     00008982  _vQueueDelete                     
 0     00008129  _vTaskDelay                       
 0     000080f0  _vTaskDelayUntil                  
@@ -934,7 +934,7 @@ abs   ffffffff  ___pinit__
 0     00008142  _vTaskStartScheduler              
 0     00008183  _vTaskSuspendAll                  
 0     000082a4  _vTaskSwitchContext               
-0     000099db  _xPortStartScheduler              
+0     000099c5  _xPortStartScheduler              
 0     000086ec  _xQueueGenericCreateStatic        
 0     00008843  _xQueueGenericReceive             
 0     0000868c  _xQueueGenericReset               
@@ -960,7 +960,7 @@ abs   ffffffff  ___pinit__
 abs   ffffffff  binit                             
 0     00000050  cinit                             
 0     00000000  code_start                        
-0     00009fdc  etext                             
+0     00009fc6  etext                             
 abs   ffffffff  pinit                             
 
 
@@ -971,7 +971,7 @@ page  address   name
 0     00000000  code_start                        
 0     00000050  ___cinit__                        
 0     00000050  cinit                             
-0     000000d5  _DSP28x_usDelay                   
+0     000000cb  _DSP28x_usDelay                   
 0     00008000  .text                             
 0     00008000  ___text__                         
 0     00008000  _xTaskCreateStatic                
@@ -1171,59 +1171,59 @@ page  address   name
 0     000097ec  _XtalOscSel                       
 0     00009807  _ExtOscSel                        
 0     0000981d  _vApplicationSetupTimerInterrupt  
-0     0000986f  _insertionTask                    
-0     0000988e  _controlTask                      
-0     000098c8  _vApplicationGetIdleTaskMemory    
-0     000098d9  _vApplicationStackOverflowHook    
-0     000098dd  _main                             
-0     00009926  _pxPortInitialiseStack            
-0     000099da  _vPortEndScheduler                
-0     000099db  _xPortStartScheduler              
-0     000099e9  _vPortEnterCritical               
-0     000099f1  _vPortExitCritical                
-0     000099fb  _initPID                          
-0     00009a1d  _calculatePIDOutput               
-0     00009a6a  _simulateSystem                   
-0     00009a71  _PID_routine                      
-0     00009ac3  _config_interrupts                
-0     00009ae7  _Config_adc                       
-0     00009b24  _Config_dma_4_adc                 
-0     00009b89  _vListInitialise                  
-0     00009ba1  _vListInitialiseItem              
-0     00009baa  _vListInsertEnd                   
-0     00009bc5  _vListInsert                      
-0     00009bf7  _uxListRemove                     
-0     00009c1b  FS$$DIV                           
-0     00009ca3  _getSTF                           
-0     00009ca7  _portRESTORE_FIRST_CONTEXT        
-0     00009cb2  _portTICK_ISR                     
-0     00009d26  _InitCpuTimers                    
-0     00009d61  _ConfigCpuTimer                   
-0     00009d9c  _c_int00                          
-0     00009df2  _insertionSort                    
-0     00009e25  _insertion_rotine                 
-0     00009e41  _local_DINTCH1_ISR                
-0     00009e76  _adc_isr                          
-0     00009e8f  _timer1_ISR                       
-0     00009ece  C$$EXIT                           
-0     00009ece  _abort                            
-0     00009ed0  _exit                             
-0     00009ef7  _InitPieCtrl                      
-0     00009f16  _EnableInterrupts                 
-0     00009f1f  _InitPieVectTable                 
-0     00009f45  _copy_in                          
-0     00009f69  _memcpy                           
-0     00009f86  _Config_GPIO                      
-0     00009f9c  _memcmp                           
-0     00009faf  __args_main                       
-0     00009fc1  __register_unlock                 
-0     00009fc5  __register_lock                   
-0     00009fc9  __nop                             
-0     00009fd2  _memset                           
-0     00009fd9  __system_pre_init                 
-0     00009fdb  __system_post_cinit               
-0     00009fdc  ___etext__                        
-0     00009fdc  etext                             
+0     0000984d  _insertionTask                    
+0     00009872  _controlTask                      
+0     000098b2  _vApplicationGetIdleTaskMemory    
+0     000098c3  _vApplicationStackOverflowHook    
+0     000098c7  _main                             
+0     00009910  _pxPortInitialiseStack            
+0     000099c4  _vPortEndScheduler                
+0     000099c5  _xPortStartScheduler              
+0     000099d3  _vPortEnterCritical               
+0     000099db  _vPortExitCritical                
+0     000099e5  _initPID                          
+0     00009a07  _calculatePIDOutput               
+0     00009a54  _simulateSystem                   
+0     00009a5b  _PID_routine                      
+0     00009aad  _config_interrupts                
+0     00009ad1  _Config_adc                       
+0     00009b0e  _Config_dma_4_adc                 
+0     00009b73  _vListInitialise                  
+0     00009b8b  _vListInitialiseItem              
+0     00009b94  _vListInsertEnd                   
+0     00009baf  _vListInsert                      
+0     00009be1  _uxListRemove                     
+0     00009c05  FS$$DIV                           
+0     00009c8d  _getSTF                           
+0     00009c91  _portRESTORE_FIRST_CONTEXT        
+0     00009c9c  _portTICK_ISR                     
+0     00009d10  _InitCpuTimers                    
+0     00009d4b  _ConfigCpuTimer                   
+0     00009d86  _c_int00                          
+0     00009ddc  _insertionSort                    
+0     00009e0f  _insertion_rotine                 
+0     00009e2b  _local_DINTCH1_ISR                
+0     00009e60  _adc_isr                          
+0     00009e79  _timer1_ISR                       
+0     00009eb8  C$$EXIT                           
+0     00009eb8  _abort                            
+0     00009eba  _exit                             
+0     00009ee1  _InitPieCtrl                      
+0     00009f00  _EnableInterrupts                 
+0     00009f09  _InitPieVectTable                 
+0     00009f2f  _copy_in                          
+0     00009f53  _memcpy                           
+0     00009f70  _Config_GPIO                      
+0     00009f86  _memcmp                           
+0     00009f99  __args_main                       
+0     00009fab  __register_unlock                 
+0     00009faf  __register_lock                   
+0     00009fb3  __nop                             
+0     00009fbc  _memset                           
+0     00009fc3  __system_pre_init                 
+0     00009fc5  __system_post_cinit               
+0     00009fc6  ___etext__                        
+0     00009fc6  etext                             
 1     00000400  __stack                           
 1     00000600  __STACK_END                       
 1     00000880  _DevEmuRegs                       

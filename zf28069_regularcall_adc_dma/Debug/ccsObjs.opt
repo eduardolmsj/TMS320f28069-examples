@@ -7,6 +7,7 @@
 "./F2806x_GlobalVariableDefs.obj"
 "./F2806x_PieCtrl.obj"
 "./F2806x_PieVect.obj"
+"./F2806x_Sci.obj"
 "./F2806x_SysCtrl.obj"
 "./F2806x_usDelay.obj"
 "./main.obj"
@@ -14,6 +15,7 @@
 "./Methods/functions/gpio.obj"
 "./Methods/functions/insertion.obj"
 "./Methods/functions/pid.obj"
+"./Methods/functions/sci.obj"
 "C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/common/cmd/28069_RAM_lnk.cmd"
 "C:/ti/C2000Ware_DigitalPower_SDK_5_00_01_00/c2000ware/device_support/f2806x/headers/cmd/F2806x_Headers_nonBIOS.cmd"
 -lIQmath_fpu32.lib

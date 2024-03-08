@@ -26,7 +26,7 @@ int teste=0;
 volatile Uint16 DMABuf1[1024];
 volatile Uint16 DMABuf2[1024];
 
-int adc_buffer_size = 128;
+int adc_buffer_size = 16;
 Uint32 adc_value;
 unsigned long int mean_adc_value=0;
 double pid_output;
@@ -67,22 +67,25 @@ void main(void)
     Config_dma_4_adc(DMADest, DMASource, DMABuf1, adc_buffer_size);
     Config_GPIO();
     config_interrupts();
+    config_sci();
 
     PIDController pid;
+    double kp = 1.0;
+    double ki = 0.1;
+    double kd = 0.01;
+    double setpoint = 10.0;
+    int n =10;
+    int *insertion_arr = (int *)malloc(n * sizeof(int));
     for(;;)
     {
-        adc_value = AdcResult.ADCRESULT0;
-        double kp = 1.0;
-        double ki = 0.1;
-        double kd = 0.01;
-        double setpoint = 10.0;
-        int n =100;
-        int insertion_arr[100];
+        GpioDataRegs.GPATOGGLE.bit.GPIO1 = 1;
+//        adc_value = AdcResult.ADCRESULT0;
 
         // Inicializa o controlador PID
         PID_routine(&pid_output, &pid, kp, ki, kd, setpoint, adc_buffer_size, DMABuf1, &mean_adc_value);
         insertion_rotine(n, insertion_arr);
-        GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+//        GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+//        GpioDataRegs.GPACLEAR.bit.GPIO1 = 1;
     }
 }
 

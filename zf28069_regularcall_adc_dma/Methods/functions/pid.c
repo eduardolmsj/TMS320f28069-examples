@@ -59,6 +59,7 @@ void PID_routine(double *pid_output, PIDController *pid, double kp, double ki, d
     for (i = 0; i < 50; i++) {
     *pid_output = calculatePIDOutput(&pid, process_variable);
     }
+    scia_xmit(pid_output);
     return;
 }
 
